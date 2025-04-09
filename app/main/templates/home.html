@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+        
+.whats_new{
+    border-radius: 20px; 
+    transition: 0.3s ease-in-out;
+}
+.whats_new:hover{
+    transform: scale(1.05);
+}
+.steps{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+    padding:1rem;
+    }
+
+    .steps .box{
+    flex:1 1 20rem;
+    padding:1rem;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+    }
+    .steps .box:hover{
+        transform: scale(1.05);
+        
+    }
+    .steps .box img{
+    border-radius: 50%;
+    border:1rem solid #fff;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    }
+
+    .steps .box h3{
+    font-size: 3rem;
+    color:#333;
+    padding:1rem;
+    }
+
+    .image-container {
+    position: relative;
+    width: 350px;
+    height: 370px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+    }
+
+    .image-container:hover img {
+    transform: scale(1.1);
+    }
+
+    .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    }
+    .image-container:hover .overlay {
+    opacity: 1;
+    }
+</style>
+    <!-- whats_new -->
+    <img src="{% static 'assets/img13.jpg' %}" style="width: 100%;height: auto;">
+    <section>
+        <center><img src="{% static 'assets/image.png' %}" style="width: 470px;margin-top: 30px;margin-bottom: 50px;"></center>
+        <section style="width: 100%;">
+            <div style="display: flex;column-gap: 30px; margin-left: 200px;">
+        <div class="image-container">
+        <img src="https://i.pinimg.com/474x/45/aa/2c/45aa2cadce266705a7155a4cc6c29079.jpg" alt="Hover Image">
+            <div class="overlay">
+                <h2>Title Goes Here</h2>
+                <p>Some description or action on hover.</p>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="https://i.pinimg.com/474x/45/aa/2c/45aa2cadce266705a7155a4cc6c29079.jpg" alt="Hover Image">
+                <div class="overlay">
+                    <h2>Title Goes Here</h2>
+                    <p>Some description or action on hover.</p>
+                </div>
+            </div>
+        <div class="image-container">
+            <img src="https://i.pinimg.com/474x/45/aa/2c/45aa2cadce266705a7155a4cc6c29079.jpg" alt="Hover Image">
+                <div class="overlay">
+                    <h2>Title Goes Here</h2>
+                    <p>Some description or action on hover.</p>
+                </div>
+            </div>
+        </div>
+        </section>
+    </section>
+<!-- whats_new ends -->
+
+
+<!-- how it works -->
+<div class="step-container">
+    <center><img src="{% static 'assets/Screenshot 2025-04-06 061555.png' %}" style="width: 470px;margin-top: 60px;margin-bottom: 50px;"></center>
+    <section class="steps">
+        <div class="box">
+            <img src="{% static 'assets/step-1.jpg' %}">
+            <h3>choose your favorite food</h3>
+        </div>
+        <div class="box">
+            <img src="{% static 'assets/step-2.jpg' %}">
+            <h3>free and fast delivery</h3>
+        </div>
+        <div class="box">
+            <img src="{% static 'assets/step-3.jpg' %}">
+            <h3>easy payments methods</h3>
+        </div>
+        <div class="box">
+            <img src="{% static 'assets/step-4.jpg' %}">
+            <h3>and finally, enjoy your food</h3>
+        </div>
+    </section>
+</div>
+<!-- how it works end -->
+
+
+<!-- our food gallery -->
+<section style="margin-top: 20px;">
+    <center><img src="{% static 'assets/Screenshot 2025-04-06 062244.png' %}" width="620px" style="margin-left: 10px;"></center>
+    <center><section>
+        <div style="position: relative;">
+            <button onclick="scrollContentLeft('scroll-container-1')"  style="width: 50px;height: 50px;background-color: white;border-radius: 50%;
+            display: flex;align-items: center;justify-content: center;box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);border: none;cursor: pointer;margin-left: 120px;
+            font-size: 22px;font-weight: 600;color: black;position: absolute; left: -10px; top: 45%; transform: translateY(-50%);z-index: 1000;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(180deg);">
+                    <path d="M10 7L15 12L10 17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button onclick="scrollContentRight('scroll-container-1')"  style="width: 50px;height: 50px;background-color: white;border-radius: 50%;display: flex;
+            align-items: center;justify-content: center;box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);border: none;cursor: pointer;font-size: 22px;font-weight: 600;
+            color: black;position: absolute; right: 120px; top: 45%; transform: translateY(-50%);z-index: 1000;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 7L15 12L10 17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            <div id="scroll-container-1" class="scroll-container" style="display: flex; flex-direction: row; height: 630px;width: 1250px; margin-top: 50px;column-gap: 25px;overflow-x: auto;scroll-behavior: smooth;-ms-overflow-style: none;scrollbar-width: none;white-space: nowrap;padding: 10px;">
+                <div><img src="https://thumbs.dreamstime.com/b/set-pizza-background-various-kinds-italian-dark-fast-food-lunch-vertical-image-top-view-place-text-278644419.jpg" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://theclassybaker.com/wp-content/uploads/2021/03/creamy-spinach-and-walnut-pasta-2-scaled.jpg" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://i5.walmartimages.com/asr/8732ca98-c2b6-48ad-bc90-b4dd7f7a54e0.662ab71b45940ca5ffa5c86940e346a9.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://static.vecteezy.com/system/resources/previews/051/418/884/large_2x/appetizing-salad-of-crab-sticks-cucumber-leaves-and-egg-on-a-plate-on-the-table-vertical-view-photo.jpg" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://img.freepik.com/premium-photo/iced-coffee-with-milk-glass-cup-black-background-location-vertical_271740-3693.jpg" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://i.pinimg.com/474x/45/aa/2c/45aa2cadce266705a7155a4cc6c29079.jpg" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://www.ambitiouskitchen.com/wp-content/uploads/2023/02/Garlic-Bread-4.jpg" height="520px" width="390px" class="whats_new"></div>
+                <div><img src="https://hips.hearstapps.com/hmg-prod/images/apple-pie-cheesecake-vertical-64b1cccb1a7ca.jpg?crop=0.8330969267139481xw:1xh;center,top&resize=980:*" height="520px" width="390px" class="whats_new"></div>
+            </div>
+        </div>
+    </section></center>
+</section>
+<!-- our food gellery ends -->
+
+
+<script>
+    function scrollContentLeft(containerId) {
+        let container = document.getElementById(containerId);
+        if (container) {
+            container.scrollBy({ left: -415, behavior: 'smooth' });
+        } else {
+            console.error("Container not found:", containerId);
+        }
+    }
+    function scrollContentRight(containerId) {
+        let container = document.getElementById(containerId);
+        if (container) {
+            container.scrollBy({ left: 415, behavior: 'smooth' });
+        } else {
+            console.error("Container not found:", containerId);
+        }
+    }
+
+</script>
+{% endblock %}

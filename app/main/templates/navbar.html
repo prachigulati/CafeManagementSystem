@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    .navbar {
+    height: 70px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: top 0.4s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-family: system-ui;
+    background-color: #EAE7DC;
+    }
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 140px;
+    color: #E85A4F;
+}
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 1.8rem;
+}
+.navbar ul li{
+    position: relative;
+}
+.navbar ul li a {
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+    color: #E85A4F;
+}
+
+.navbar ul li a:hover {
+    color: #E98074;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+</style>
+<nav class="navbar">
+    <a href="{% url 'home' %}" style="text-decoration: none;"><div class="logo">Beans & Blossoms</div></a>
+    <ul>
+    <div class="dropdown">
+        <button class="dropbtn"><a href="{% url 'menu' %}">Menu</a>
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="{% url 'category' 'Coffee' %}">Coffee</a>
+            <a href="{% url 'category' 'Breakfast' %}">Breakfast</a>
+                <a href="{% url 'category' 'Lunch' %}">Lunch</a>
+                <a href="{% url 'category' 'Dinner' %}">Dinner</a>
+        </div>
+    </div>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="#">Order Now</a></li>
+        <li><a href="{% url 'faqs' %}">FAQ's</a></li>
+        <li><a href="#">Contact</a></li>
+        <li ><a href="#">Subscription</a></li>
+        <li style="margin-right: 140px;"><a href="{% url 'cart_summary' %}">Cart</a></li>
+    
+    </ul>
+</nav>
+
+<script>
+    let lastScrollY = window.scrollY;
+    const navbar = document.querySelector(".navbar");
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > lastScrollY) {
+        navbar.style.top = "-100px"; // hide
+        } else {
+        navbar.style.top = "0"; // show
+        }
+        lastScrollY = window.scrollY;
+    });
+</script>

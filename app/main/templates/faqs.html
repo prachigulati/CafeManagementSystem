@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <center><img src="{% static 'assets/Screenshot 2025-04-06 063901.png' %}" width="700px" style="margin-top: 30px;"></center>
+    <section class="w-full max-w-6xl mx-auto mt-20 bg-white text-gray-900 p-6 rounded-lg shadow-lg">
+        <div class="space-y-4" style="color: #f73d30;">
+            <!-- Question 1 -->
+            <div class="border-b border-gray-400">
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(0)">
+                    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, ad!</span>
+                    <span class="text-blue-600">▼</span>
+                </button>
+                <p class="faq-answer hidden text-gray-700 pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque molestias, minima exercitationem assumenda impedit debitis maiores eius qui aliquam labore accusamus provident nemo atque quasi quidem voluptas, doloribus voluptatibus vel.</p>
+            </div>
+            <!-- Question 2 -->
+            <div class="border-b border-gray-400">
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                    <span class="text-blue-600">▼</span>
+                </button>
+                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+            </div>
+            <!-- Question 3 -->
+            <div class="border-b border-gray-400">
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                    <span class="text-blue-600">▼</span>
+                </button>
+                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+            </div>
+            <!-- Question 4 -->
+            <div class="border-b border-gray-400">
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                    <span class="text-blue-600">▼</span>
+                </button>
+                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+            </div>
+            <!-- Question 5 -->
+            <div class="border-b border-gray-400">
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                    <span class="text-blue-600">▼</span>
+                </button>
+                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+            </div>
+            <!-- Question 6 (New) -->
+            <div class="border-b border-gray-400">
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                    <span class="text-blue-600">▼</span>
+                </button>
+                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+            </div>
+        </div>
+    </section>
+    
+    <script src="https://cdn.tailwindcss.com">
+        let activeIndex = null;
+        function toggleFAQ(index) {
+            const answers = document.querySelectorAll(".faq-answer");
+            
+            if (activeIndex !== null && activeIndex !== index) {
+                answers[activeIndex].classList.add("hidden");
+            }
+            answers[index].classList.toggle("hidden");
+            activeIndex = answers[index].classList.contains("hidden") ? null : index;
+        }
+    </script>
+{% endblock %}
