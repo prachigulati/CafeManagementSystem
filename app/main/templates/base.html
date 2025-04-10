@@ -20,6 +20,89 @@
     body{
         background-color: #E8E9E1;
     }
+    footer {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 60px 0 20px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h3 {
+    color: #000000;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer-section p {
+    color: #000000;
+    line-height: 1.6;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-section ul li i {
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.footer-section ul li a {
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #00693d;
+}
+
+.footer-section i {
+    margin-right: 10px;
+    color: #00693d;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+    color: #000000;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
     </style>
 </head>
 <body>
@@ -38,9 +121,45 @@
 
 
 <!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+<footer>
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Beans And Blossoms</h3>
+                <p>At Beans and Blossom, we create a welcoming space where great coffee, community, and connections thrive. Our vision is to inspire warmth, creativity, and joy in every visit.
+                </p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><i class="fas fa-chevron-right"></i><a href="../landingpage.html">Home</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="../recipe.html">Recipes</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="../aboutuspage.html">About Us</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <ul>
+                    <li><i class="fas fa-bread-slice"></i><a href="../breakfast.html">Breakfast</a></li>
+                    <li><i class="fas fa-pizza-slice"></i><a href="../lunch.html">Lunch</a></li>
+                    <li><i class="fas fa-cookie"></i><a href="../dessert.html">Desserts</a></li>
+                    <li><i class="fas fa-glass-martini-alt"></i><a href="../drink.html">Drinks</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i> Mohali, Punjab, India<br>
+                    <i class="fas fa-phone"></i> +91 9814170303<br>
+                    <i class="fas fa-envelope"></i> jugadveer278@gmail.com
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<!-- footer ends -->
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
