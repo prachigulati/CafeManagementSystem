@@ -35,7 +35,7 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto">Add to Cart</button>
+                                    <button class="btn btn-outline-dark mt-auto" type="button" value="{{ product.id }}" id="add-cart">Add to Cart</button>
                                 </div>
                             </div>                            
                         </div>
@@ -58,14 +58,32 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto">Add to Cart</button>
+                                    <button class="btn btn-outline-dark mt-auto" type="button" value="{{ product.id }}" id="add-cart">Add to Cart</button>
                                 </div>
                             </div>                            
                         </div>
                     </div>
                     {% endif %}
-                    {% endfor %}
+                {% endfor %}
     </div>
     </section>
-
+    <script>
+        $(document).on('click', '#add-cart', function(e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '{% url 'cart_add' %}',
+                data: {
+                    product_id: $('#add-cart').val(),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json){
+                    console.log(json)
+                },
+                error: function(xhr, errmsg, err){
+                }
+            });
+        })
+    </script>
 {% endblock %}

@@ -101,7 +101,11 @@
         <li><a href="#">Order Status</a></li>
         <li><a href="{% url 'faqs' %}">FAQ's</a></li>
         <li><a href="#">Contact</a></li>
-        <li ><a href="{% url 'cart_summary' %}">Cart</a></li>
+        <form class="d-flex">
+        <li ><a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class ="bi-cart-fill me-1"></i>Cart
+            <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+        </a></li>
+        </form>
         <li style="margin-right: 140px;"><a href="/logout/">Logout</a></li>
         {% else %}
         <div class="dropdown">
@@ -119,7 +123,11 @@
             <li><a href="#">Order Status</a></li>
             <li><a href="{% url 'faqs' %}">FAQ's</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="{% url 'cart_summary' %}">Cart</a></li>
+            <form class="d-flex">
+            <li><a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class ="bi-cart-fill me-1"></i>Cart
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+            </a></li>
+        </form>
             <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
             <li style="margin-right: 100px;"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
         {% endif %}
