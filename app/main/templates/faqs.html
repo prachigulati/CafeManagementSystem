@@ -7,55 +7,57 @@
             <!-- Question 1 -->
             <div class="border-b border-gray-400">
                 <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(0)">
-                    <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, ad!</span>
+                    <span> What is Beans and Blossoms?</span>
                     <span class="text-blue-600">▼</span>
                 </button>
-                <p class="faq-answer hidden text-gray-700 pb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque molestias, minima exercitationem assumenda impedit debitis maiores eius qui aliquam labore accusamus provident nemo atque quasi quidem voluptas, doloribus voluptatibus vel.</p>
+                <p class="faq-answer hidden text-gray-700 pb-3">Beans and Blossoms is a cozy cafe that brings together the love of freshly brewed coffee and the beauty of floral ambiance. We offer a variety of handcrafted beverages, snacks, and desserts in a calm, plant-filled environment.</p>
             </div>
             <!-- Question 2 -->
             <div class="border-b border-gray-400">
                 <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                    <span>What are your opening hours?</span>
                     <span class="text-blue-600">▼</span>
                 </button>
-                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+                <p class="faq-answer hidden text-gray-700 pb-3">We're open every day from 9:00 AM to 10:00 PM, including weekends and holidays.</p>
             </div>
             <!-- Question 3 -->
             <div class="border-b border-gray-400">
-                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(2)">
+                    <span>Do you have any seasonal specials?</span>
                     <span class="text-blue-600">▼</span>
                 </button>
-                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+                <p class="faq-answer hidden text-gray-700 pb-3"> Yes, we love getting creative! We introduce seasonal drinks and dishes inspired by the weather, festivals, and fresh ingredients available.
+                </p>
             </div>
             <!-- Question 4 -->
             <div class="border-b border-gray-400">
-                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(3)">
+                    <span>Can I order online for delivery or pickup?</span>
                     <span class="text-blue-600">▼</span>
                 </button>
-                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+                <p class="faq-answer hidden text-gray-700 pb-3">Yes, you can place orders directly through our website or via food delivery platforms like Swiggy and Zomato.</p>
             </div>
             <!-- Question 5 -->
             <div class="border-b border-gray-400">
-                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(4)">
+                    <span> Is your cafe pet-friendly?</span>
                     <span class="text-blue-600">▼</span>
                 </button>
-                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+                <p class="faq-answer hidden text-gray-700 pb-3">Yes, we love furry visitors! Just ensure they’re well-behaved and on a leash.
+                </p>
             </div>
-            <!-- Question 6 (New) -->
+            <!-- Question 6 -->
             <div class="border-b border-gray-400">
-                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(1)">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, magnam?</span>
+                <button class="flex justify-between w-full py-3 text-left focus:outline-none" onclick="toggleFAQ(5)">
+                    <span> What payment methods do you accept?</span>
                     <span class="text-blue-600">▼</span>
                 </button>
-                <p class="faq-answer hidden text-gray-700 pb-3">lorem10</p>
+                <p class="faq-answer hidden text-gray-700 pb-3">We accept cash, all major credit/debit cards, UPI, and digital wallets like Paytm and Google Pay.</p>
             </div>
         </div>
     </section>
-    
-    <script src="https://cdn.tailwindcss.com">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
         let activeIndex = null;
         function toggleFAQ(index) {
             const answers = document.querySelectorAll(".faq-answer");
