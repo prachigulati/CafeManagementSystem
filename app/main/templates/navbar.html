@@ -125,7 +125,7 @@
             <li><a href="#">Contact</a></li>
             <form class="d-flex">
             <li><a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class ="bi-cart-fill me-1"></i>Cart
-                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
+                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{cart|length}}</span>
             </a></li>
         </form>
             <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
