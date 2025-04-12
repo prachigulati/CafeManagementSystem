@@ -23,7 +23,7 @@
         background-color: #E8E9E1;
     }
     footer {
-    background-color: #ffffff;
+    background-color: #f6f4ec;
     color: #000000;
     padding: 60px 0 20px;
 }
@@ -75,12 +75,12 @@
 }
 
 .footer-section ul li a:hover {
-    color: #00693d;
+    color: #E98074;
 }
 
 .footer-section i {
     margin-right: 10px;
-    color: #00693d;
+    color: #E98074;
 }
 
 .footer-bottom {
@@ -134,26 +134,26 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><i class="fas fa-chevron-right"></i><a href="../landingpage.html">Home</a></li>
-                    <li><i class="fas fa-chevron-right"></i><a href="../menu.html">Menu</a></li>
-                    <li><i class="fas fa-chevron-right"></i><a href="../aboutuspage.html">About Us</a></li>
-                    <li><i class="fas fa-chevron-right"></i><a href="../contact.html">Contact</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="{% url 'home' %}">Home</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="{% url 'menu' %}">Menu</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="{% url 'about' %}">About Us</a></li>
+                    <li><i class="fas fa-chevron-right"></i><a href="{% url 'faqs' %}">Reviews</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Categories</h3>
                 <ul>
-                    <li><i class="fas fa-bread-slice"></i><a href="../breakfast.html">Breakfast</a></li>
-                    <li><i class="fas fa-pizza-slice"></i><a href="../lunch.html">Lunch</a></li>
-                    <li><i class="fas fa-cookie"></i><a href="../dinner.html">Dinner</a></li>
-                    <li><i class="fas fa-glass-martini-alt"></i><a href="../coffee.html">Coffee</a></li>
+                    <li><i class="fas fa-bread-slice"></i><a href="{% url 'category' 'Breakfast' %}">Breakfast</a></li>
+                    <li><i class="fas fa-pizza-slice"></i><a href="{% url 'category' 'Lunch' %}">Lunch</a></li>
+                    <li><i class="fas fa-cookie"></i><a href="{% url 'category' 'Dinner' %}">Dinner</a></li>
+                    <li><i class="fas fa-glass-martini-alt"></i><a href="{% url 'category' 'Coffee' %}">Coffee</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Contact Info</h3>
                 <p>
                     <i class="fas fa-map-marker-alt"></i> Mohali, Punjab, India<br>
-                    <i class="fas fa-phone"></i> +91 9814170303<br>
+                    <i class="fas fa-phone"></i> +91 9878247569<br>
                     <i class="fas fa-envelope"></i> beans&blossoms@gmail.com
                 </p>
             </div>

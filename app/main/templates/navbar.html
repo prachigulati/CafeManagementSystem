@@ -91,16 +91,16 @@
             <i class="fa fa-caret-down"></i>
         </button> 
         <div class="dropdown-content">
-            <a href="{% url 'category' 'Coffee' %}">Coffee</a>
-            <a href="{% url 'category' 'Breakfast' %}">Breakfast</a>
-                <a href="{% url 'category' 'Lunch' %}">Lunch</a>
-                <a href="{% url 'category' 'Dinner' %}">Dinner</a>
+            <a href="{% url 'category' 'Coffee' %}"><i class="fas fa-glass-martini-alt"></i>&nbsp;Coffee</a>
+            <a href="{% url 'category' 'Breakfast' %}"><i class="fas fa-bread-slice"></i>&nbsp;Breakfast</a>
+            <a href="{% url 'category' 'Lunch' %}"><i class="fas fa-pizza-slice"></i>&nbsp;Lunch</a>
+            <a href="{% url 'category' 'Dinner' %}"><i class="fas fa-cookie"></i>&nbsp;Dinner</a>
         </div>
     </div>
         <li><a href="{% url 'about' %}">About</a></li>
         <li><a href="#">Order Status</a></li>
         <li><a href="{% url 'faqs' %}">FAQ's</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Reviews</a></li>
         <form class="d-flex">
         <li ><a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class ="bi-cart-fill me-1"></i>Cart
             <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
@@ -113,16 +113,16 @@
                 <i class="fa fa-caret-down"></i>
             </button> 
             <div class="dropdown-content">
-                <a href="{% url 'category' 'Coffee' %}">Coffee</a>
-                <a href="{% url 'category' 'Breakfast' %}">Breakfast</a>
-                    <a href="{% url 'category' 'Lunch' %}">Lunch</a>
-                    <a href="{% url 'category' 'Dinner' %}">Dinner</a>
+                <a href="{% url 'category' 'Coffee' %}"><i class="fas fa-glass-martini-alt"></i>&nbsp;Coffee</a>
+                <a href="{% url 'category' 'Breakfast' %}"><i class="fas fa-bread-slice"></i>&nbsp;Breakfast</a>
+                <a href="{% url 'category' 'Lunch' %}"><i class="fas fa-pizza-slice"></i>&nbsp;Lunch</a>
+                <a href="{% url 'category' 'Dinner' %}"><i class="fas fa-cookie"></i>&nbsp;Dinner</a>
             </div>
         </div>
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a href="#">Order Status</a></li>
             <li><a href="{% url 'faqs' %}">FAQ's</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">Reviews</a></li>
             <form class="d-flex">
             <li><a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class ="bi-cart-fill me-1"></i>Cart
                 <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{cart|length}}</span>
