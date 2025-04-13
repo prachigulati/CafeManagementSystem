@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Header -->
+<header class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center">
+            <h1 class="display-4 fw-bolder" style="color: #E85A4F;">Checkout</h1>
+            <p class="lead fw-normal mb-0" style="color: #333;">"Review your order..."</p>
+        </div>
+    </div>
+</header>
+
+<!-- Checkout Content -->
+<div class="container mb-5" style="margin-top: -40px;">
+    <div class="row d-flex align-items-stretch">
+
+        <!-- Order Summary Column -->
+        <div class="col-md-6 mb-4 d-flex">
+            <div class="card shadow-lg rounded-4 border-0 w-100 h-100">
+                <div class="card-header bg-white border-bottom-0 rounded-top-4">
+                    <h5 class="mb-0" style="color: #E85A4F;">Order Summary</h5>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        {% for product in cart_products %}
+                            <div class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>{{ product.name }}</strong>
+                                    <span class="float-end" style="color: #28a745;">
+                                        {% if product.is_sale %}
+                                            ₹{{ product.sale_price }} <small class="text-muted">(per item)</small>
+                                        {% else %}
+                                            ₹{{ product.price }} <small class="text-muted">(per item)</small>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <small class="text-muted">
+                                    Quantity:
+                                    {% for key, value in quantities.items %}
+                                        {% if key == product.id|slugify %}
+                                            {{ value }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <h5 class="text-end">Total: ₹{{ totals }}</h5>
+                        <a href="{% url 'cart_summary' %}" class="btn btn-outline-secondary btn-sm">Update Items</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shipping Address Column -->
+        <div class="col-md-6 mb-4 d-flex">
+            <div class="card shadow-lg rounded-4 border-0 w-100 h-100">
+                <div class="card-header bg-white border-bottom-0 rounded-top-4">
+                    <h5 class="mb-0" style="color: #E85A4F;">Shipping Address</h5>
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        {% if profile.phone and profile.address1 and profile.city and profile.state and profile.zipcode and profile.country %}
+                            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+                            <p><strong>Address 1:</strong> {{ profile.address1 }}</p>
+                            {% if profile.address2 %}
+                                <p><strong>Address 2:</strong> {{ profile.address2 }}</p>
+                            {% endif %}
+                            <p><strong>City:</strong> {{ profile.city }}</p>
+                            <p><strong>State:</strong> {{ profile.state }}</p>
+                            <p><strong>Zip Code:</strong> {{ profile.zipcode }}</p>
+                            <p><strong>Country:</strong> {{ profile.country }}</p>
+                        {% else %}
+                            <p class="text-warning">⚠️ Your shipping details are incomplete. Please update your address information.</p>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if profile.phone and profile.address1 %}
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#userInfoModal" class="btn btn-outline-secondary btn-sm mt-2">Edit Address</a>
+                        {% else %}
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#userInfoModal" class="btn btn-outline-primary btn-sm mt-2">Update Address Info</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Continue to Billing Button -->
+    <div class="text-center mt-4">
+        <a href="#" class="btn btn-success px-5 py-3 rounded-pill shadow-lg"
+           style="font-size: 1.1rem; transition: transform 0.2s ease-in-out;">
+            Proceed to Payment
+        </a>
+    </div>
+</div>
+{% endblock %}

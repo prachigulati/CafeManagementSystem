@@ -1,81 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-        <!-- header -->
-        <header class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center">
-                    <h1 class="display-4 fw-bolder" style="color: #E85A4F;" >Shopping Cart</h1>
-                    <p class="lead fw-normal  mb-0" style="color: #333">"Your cart is waiting..."</p>
-                </div>
-            </div>
-        </header>
-        <br>
-        <div class="container" style="margin-top: -60px;">
-            {% if cart_products %}
-            {% for product in cart_products %}
-            <div class="card mb-4 mx-auto shadow-sm" style="max-width: 700px; border-radius: 15px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                <img src="{{ product.image.url }}" class="img-fluid rounded-start" style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px 0 0 15px;" alt="Product Image">
-                </div>
-                <div class="col-md-8">
-                <div class="card-body d-flex flex-column justify-content-between h-100">
-                    <div>
-                    <h5 class="card-title fw-bold text-dark">{{ product.name }}</h5>
-                    <p class="card-text text-muted" style="font-size: 0.95rem;">{{ product.description }}</p>
-                    {% if product.is_sale %}
-                        <p class="text-muted mb-1">
-                        <strike>₹{{ product.price }}</strike>&nbsp;
-                        <span class="fw-semibold text-success">₹{{ product.sale_price }}</span>
-                        </p>
-                    {% else %}
-                        <p class="fw-semibold text-dark mb-1">₹{{ product.price }}</p>
-                    {% endif %}
-                    </div>
-            
-                    <div class="d-flex align-items-center mt-3">
-                    <label class="me-2 mb-0 fw-medium">Quantity:</label>
-                    <select class="form-select form-select-sm w-auto me-3" id="select{{product.id}}">
-                        {% for key, value in quantities.items %}
-                        {% if key == product.id|slugify %}
-                            <option selected>{{ value }}</option>
-                        {% endif %}
-                        {% endfor %}
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-            
-                    <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-outline-secondary me-2 update-cart">Update</button>
-                    <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-outline-danger delete-product">Remove</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            
-            
-            {% endfor %}
-            <br><br>
-            <div style="text-align: right;font-size: x-large;"><strong>Total: ₹{{totals}}</strong></div>
-            {% else %}
-                <center><img src="{% static 'assets/emptycart.jpg' %}" style="margin-top: -60px;"></center>
-            {% endif %}
+<!-- header -->
+<header class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center">
+            <h1 class="display-4 fw-bolder" style="color: #E85A4F;">Shopping Cart</h1>
+            <p class="lead fw-normal mb-0" style="color: #333">"Your cart is waiting..."</p>
         </div>
-        <br><br><br>
+    </div>
+</header>
+<br>
+<div class="container" style="margin-top: -60px;">
+    {% if cart_products %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for product in cart_products %}
+        <div class="col">
+            <div class="card shadow-sm h-100" style="border-radius: 15px; padding: 10px;">
+                <div class="row g-0 align-items-center">
+                    <div class="col-md-4">
+                        <img src="{{ product.image.url }}" class="img-fluid rounded-start"
+                            style="width: 100%; height: 170px; object-fit: cover; border-radius: 15px 0 0 15px;"
+                            alt="Product Image">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body py-2 px-3 d-flex flex-column justify-content-between h-100">
+                            <div>
+                                <h5 class="card-title fw-bold text-dark mb-1">{{ product.name }}</h5>
+                                <p class="card-text text-muted mb-1" style="font-size: 0.9rem;">{{ product.description }}</p>
+                                {% if product.is_sale %}
+                                <p class="text-muted mb-1" style="font-size: 0.9rem;">
+                                    <strike>₹{{ product.price }}</strike>&nbsp;
+                                    <span class="fw-semibold text-success">₹{{ product.sale_price }}</span>
+                                </p>
+                                {% else %}
+                                <p class="fw-semibold text-dark mb-1" style="font-size: 0.95rem;">₹{{ product.price }}</p>
+                                {% endif %}
+                            </div>
 
+                            <div class="d-flex align-items-center mt-2">
+                                <label class="me-2 mb-0 fw-medium" style="font-size: 0.9rem;">Qty:</label>
+                                <select class="form-select form-select-sm w-auto me-2" id="select{{product.id}}">
+                                    {% for key, value in quantities.items %}
+                                    {% if key == product.id|slugify %}
+                                    <option selected>{{ value }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+
+                                <button type="button" data-index="{{product.id}}"
+                                    class="btn btn-sm btn-outline-secondary me-1 update-cart">Update</button>
+                                <button type="button" data-index="{{product.id}}"
+                                    class="btn btn-sm btn-outline-danger delete-product">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Total and Checkout -->
+    <div class="text-end mt-4" style="font-size: x-large;">
+        <strong>Total: ₹{{ totals }}</strong><br>
+        <a href="{% url 'checkout' %}" class="btn btn-success mt-2" style="font-size: large;">Checkout</a>
+    </div>
+    {% else %}
+    <center><img src="{% static 'assets/emptycart.jpg' %}" style="margin-top: -60px;"></center>
+    {% endif %}
+</div>
+<br><br><br>
+
+<!-- AJAX Script -->
 <script>
     // Update cart
-    $(document).on('click', '.update-cart', function(e){
+    $(document).on('click', '.update-cart', function (e) {
         e.preventDefault();
-        
+
         var productid = $(this).data('index');
         var qty = $('#select' + productid + ' option:selected').val();
-
-        console.log("Sending product_qty:", qty);
 
         $.ajax({
             type: 'POST',
@@ -86,22 +95,19 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
-            success: function(json){
+            success: function (json) {
                 location.reload();
             },
-            error: function(xhr, errmsg, err){
+            error: function (xhr, errmsg, err) {
                 console.log("Error:", errmsg);
             }
         });
     });
 
-
-
-
-    //delete item from  cart
-    $(document).on('click', '.delete-product', function(e){
+    // Delete from cart
+    $(document).on('click', '.delete-product', function (e) {
         e.preventDefault();
-        
+
         $.ajax({
             type: 'POST',
             url: '{% url "cart_delete" %}',
@@ -110,15 +116,13 @@
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
-            success: function(json){
-                // console.log(json)
-                // document.getElementById("cart_quantity").textContent=json.qty
-                location.reload()
+            success: function (json) {
+                location.reload();
             },
-            error: function(xhr, errmsg, err){
+            error: function (xhr, errmsg, err) {
+                console.log("Error:", errmsg);
             }
         });
-    })
+    });
 </script>
-
 {% endblock %}

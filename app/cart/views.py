@@ -1,9 +1,32 @@
 from django.shortcuts import render, get_object_or_404 # type: ignore
 from .cart import Cart
-from main.models import Product
+from main.models import Product, Profile
 from django.http import JsonResponse # type: ignore
 from django.contrib import messages
 # Create your views here.
+
+
+
+def checkout(request):
+    cart = Cart(request)
+    cart_products = cart.get_prods
+    quantities = cart.get_quants
+    totals = cart.cart_total()
+
+    # Get user profile if logged in
+    profile = None
+    if request.user.is_authenticated:
+        try:
+            profile = Profile.objects.get(user=request.user)
+        except Profile.DoesNotExist:
+            profile = None
+
+    return render(request, "checkout.html", {
+        "cart_products": cart_products,
+        "quantities": quantities,
+        "totals": totals,
+        "profile": profile,  # Pass profile to template
+    })
 
 def cart_summary(request):
     #get the cart
