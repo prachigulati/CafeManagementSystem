@@ -2,7 +2,35 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .models import Product, Category
+from .models import Product, Category, Profile
+from django import forms
+import json
+from cart.cart import Cart
+
+def update_info(request):
+    if request.user.is_authenticated:
+        try:
+            current_user = Profile.objects.get(user=request.user)
+        except Profile.DoesNotExist:
+            current_user = Profile(user=request.user)
+
+        if request.method == 'POST':
+            current_user.phone = request.POST.get('phone')
+            current_user.address1 = request.POST.get('address1')
+            current_user.address2 = request.POST.get('address2')
+            current_user.city = request.POST.get('city')
+            current_user.state = request.POST.get('state')
+            current_user.zipcode = request.POST.get('zipcode')
+            current_user.country = request.POST.get('country')
+            current_user.save()
+            messages.success(request, "Your info has been updated")
+            return redirect('home')
+
+        return redirect('home')
+    else:
+        messages.error(request, "You must be logged in")
+        return redirect('home')
+
 
 def category(request, food):
     #grab the category from the url
@@ -47,6 +75,21 @@ def login_page(request):
             return render(request, 'home.html', {'show_login': True})
         else:
             login(request, user)
+            #do some shopping cart stuff
+            current_user = Profile.objects.get(user__id = request.user.id)
+            #get their saved cart from database
+            saved_cart = current_user.old_cart
+            #convert databse string to python dictionary
+            if saved_cart:
+                #convert to dictionaryusing json
+                converted_cart = json.loads(saved_cart)
+                #add the loaded cart dictionary to our session
+                #get the cart
+                cart= Cart(request)
+                #loop through the cart and add the items from tha database
+                for key, value in converted_cart.items():
+                    cart.db_add(product=key, quantity=value)
+
             return redirect('/home/')
     return redirect('/home/')
 

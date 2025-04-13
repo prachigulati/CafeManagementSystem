@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
         <!-- header -->
-        <header class="bg-dark py-5">
+        <header class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shopping Cart</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">View your cart</p>
+                <div class="text-center">
+                    <h1 class="display-4 fw-bolder" style="color: #E85A4F;" >Shopping Cart</h1>
+                    <p class="lead fw-normal  mb-0" style="color: #333">"Your cart is waiting..."</p>
                 </div>
             </div>
         </header>
         <br>
-        <div class="container">
+        <div class="container" style="margin-top: -60px;">
             {% if cart_products %}
             {% for product in cart_products %}
-
-
-        <div class="card mb-3">
+            <div class="card mb-4 mx-auto shadow-sm" style="max-width: 700px; border-radius: 15px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" style="width: 100%; height: 200px; object-fit: cover; border-radius: 15px 0 0 15px;" alt="Product Image">
                 </div>
                 <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
+                <div class="card-body d-flex flex-column justify-content-between h-100">
+                    <div>
+                    <h5 class="card-title fw-bold text-dark">{{ product.name }}</h5>
+                    <p class="card-text text-muted" style="font-size: 0.95rem;">{{ product.description }}</p>
                     {% if product.is_sale %}
-                    <strike>${{ product.price }}</strike>&nbsp;
-                    ${{ product.sale_price }}
+                        <p class="text-muted mb-1">
+                        <strike>₹{{ product.price }}</strike>&nbsp;
+                        <span class="fw-semibold text-success">₹{{ product.sale_price }}</span>
+                        </p>
                     {% else %}
-                        ${{ product.price }}
+                        <p class="fw-semibold text-dark mb-1">₹{{ product.price }}</p>
                     {% endif %}
-                    <br><br>
-                    <!-- <div class="row justify-content-center"> -->
-                        <div class="col-md-2">Quantity:</div>
-                        <div class="col-md-2">
-                    <select class="form-select form-select-sm" id="select{{product.id}}">
+                    </div>
+            
+                    <div class="d-flex align-items-center mt-3">
+                    <label class="me-2 mb-0 fw-medium">Quantity:</label>
+                    <select class="form-select form-select-sm w-auto me-3" id="select{{product.id}}">
                         {% for key, value in quantities.items %}
-                            {% if key == product.id|slugify %}
-                        <option selected>{{ value }}</option>
-                            {% endif %}
+                        {% if key == product.id|slugify %}
+                            <option selected>{{ value }}</option>
+                        {% endif %}
                         {% endfor %}
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -47,20 +48,24 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
+            
+                    <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-outline-secondary me-2 update-cart">Update</button>
+                    <button type="button" data-index="{{product.id}}" class="btn btn-sm btn-outline-danger delete-product">Remove</button>
                     </div>
-                    </div>
-                    <button type="button" data-index="{{product.id}}" class="btn btn-secondary update-cart">Update</button>
-                    <button type="button" data-index="{{product.id}}" class="btn btn-danger delete-product">Remove</button>
+                </div>
                 </div>
             </div>
             </div>
+            
+            
             {% endfor %}
-            <strong>Total: ${{totals}}</strong>
+            <br><br>
+            <div style="text-align: right;font-size: x-large;"><strong>Total: ₹{{totals}}</strong></div>
             {% else %}
-            There's nothing in your cart..
+                <center><img src="{% static 'assets/emptycart.jpg' %}" style="margin-top: -60px;"></center>
             {% endif %}
         </div>
-        <br><br><br><br><br><br><br><br><br>
+        <br><br><br>
 
 <script>
     // Update cart

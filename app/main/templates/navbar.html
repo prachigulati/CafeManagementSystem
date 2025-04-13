@@ -85,7 +85,6 @@
 <nav class="navbar">
     <a href="{% url 'home' %}" style="text-decoration: none;"><div class="logo">Beans & Blossoms</div></a>
     <ul>
-    {% if user.is_authenticated %}
     <div class="dropdown">
         <button class="dropbtn"><a href="{% url 'menu' %}">Menu</a>
             <i class="fa fa-caret-down"></i>
@@ -106,27 +105,18 @@
             <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">0</span>
         </a></li>
         </form>
-        <li style="margin-right: 140px;"><a href="/logout/">Logout</a></li>
-        {% else %}
+        {% if user.is_authenticated %}
         <div class="dropdown">
-            <button class="dropbtn"><a href="{% url 'menu' %}">Menu</a>
+            <button class="dropbtn"><a>Profile</a>
                 <i class="fa fa-caret-down"></i>
             </button> 
             <div class="dropdown-content">
-                <a href="{% url 'category' 'Coffee' %}"><i class="fas fa-glass-martini-alt"></i>&nbsp;Coffee</a>
-                <a href="{% url 'category' 'Breakfast' %}"><i class="fas fa-bread-slice"></i>&nbsp;Breakfast</a>
-                <a href="{% url 'category' 'Lunch' %}"><i class="fas fa-pizza-slice"></i>&nbsp;Lunch</a>
-                <a href="{% url 'category' 'Dinner' %}"><i class="fas fa-cookie"></i>&nbsp;Dinner</a>
-            </div>
+                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#userInfoModal">User Info</a>
+                <a href="{% url 'logout' %}" style="margin-right: 140px;">Logout</a>
+                </div>
         </div>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="#">Order Status</a></li>
-            <li><a href="{% url 'faqs' %}">FAQ's</a></li>
-            <li><a href="#">Reviews</a></li>
-            <form class="d-flex">
-            <li><a href="{% url 'cart_summary' %}" class="btn btn-outline-dark"><i class ="bi-cart-fill me-1"></i>Cart
-                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{cart|length}}</span>
-            </a></li>
+        <!-- <li style="margin-right: 140px;"><a href="/logout/">Logout</a></li> -->
+        {% else %}
         </form>
             <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
             <li style="margin-right: 100px;"><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
@@ -180,6 +170,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
+                
                 <div class="mb-2">
                     <label class="form-label">First Name</label>
                     <input type="text" name="first_name" class="form-control" required>
@@ -201,6 +192,64 @@
         </div>
     </div>
 </div>
+
+<!-- Update Info Modal -->
+<div class="modal fade" id="userInfoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+            <form method="post" action="{% url 'update_info' %}">
+                {% csrf_token %}
+                <h4 class="text-center">Update Info</h4>
+                <hr>
+
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="mb-2">
+                    <label class="form-label">Phone</label>
+                    <input type="text" name="phone" class="form-control" placeholder="Phone" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Address Line 1</label>
+                    <input type="text" name="address1" class="form-control" placeholder="Address 1" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Address Line 2</label>
+                    <input type="text" name="address2" class="form-control" placeholder="Address 2(optional)">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">City</label>
+                    <input type="text" name="city" class="form-control" placeholder="City" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">State</label>
+                    <input type="text" name="state" class="form-control" placeholder="State" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">Zipcode</label>
+                    <input type="text" name="zipcode" class="form-control" placeholder="Zipcode" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <input type="text" name="country" class="form-control" placeholder="Country" required>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Update Information</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- update info ends -->
+
+
+
+
 
 
 <!-- Scripts -->

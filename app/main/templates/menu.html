@@ -2,16 +2,16 @@
 {% load static %}
 {% block content %}
         <!-- header -->
-        <header class="bg-dark py-5">
+        <header class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                <div class="text-center " style="color:  #E85A4F;;">
+                    <h1 class="display-4 fw-bolder">Menu</h1>
+                    <p class="lead fw-normal mb-0" style="color: #E98074;">Can’t decide? Everything’s worth a try</p>
                 </div>
             </div>
         </header>
         <!-- Section-->
-        <section class="py-5">
+        <section class="py-5" style="margin-top: -120px;">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% for product in products %}
@@ -28,9 +28,11 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{product.name}}</h5>
                                     <!-- Product price-->
-                                    <strike>${{product.price}}</strike>&nbsp;${{product.sale_price}}<br>
+                                    <strike>₹{{product.price}}</strike>&nbsp;₹{{product.sale_price}}<br>
                                     {{product.description}}
-                                    <div class="col-md-4">Quantity:</div>
+                                    <center>
+                                        <div style="display: flex; margin-right: -70px;margin-top: 10px;">
+                                        <div class="col-md-4" style="margin-left: 5px; ">Quantity:</div>
                                     <div class="col-md-4">
                                 <select class="form-select form-select-sm" id="qty-cart">
                                     <option value="1">1</option>
@@ -40,12 +42,12 @@
                                     <option value="5">5</option>
                                 </select>
                                 </div>
-                                </div>
+                                </div></div></center>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <button class="btn btn-outline-dark mt-auto addcart" type="button" value="{{ product.id }}" >Add to Cart</button>
+                                    <button class="btn btn-outline-dark mt-auto addcart" type="button" value="{{ product.id }}"  >Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -61,9 +63,11 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{product.name}}</h5>
                                     <!-- Product price-->
-                                    ${{product.price}}<br>
+                                    ₹{{product.price}}<br>
                                     {{product.description}}
-                                    <div class="col-md-4">Quantity:</div>
+                                    <center>
+                                        <div style="display: flex; margin-right: -70px;margin-top: 10px;">
+                                        <div class="col-md-4" style="margin-left: 5px; ">Quantity:</div>
                                     <div class="col-md-4">
                                 <select class="form-select form-select-sm" id="qty-cart">
                                     <option value="1">1</option>
@@ -73,7 +77,7 @@
                                     <option value="5">5</option>
                                 </select>
                                 </div>
-                                </div>
+                                </div></div></center>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
