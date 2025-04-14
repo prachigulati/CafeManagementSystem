@@ -6,6 +6,7 @@ from .models import Product, Category, Profile
 from django import forms
 import json
 from cart.cart import Cart
+from django.core.exceptions import ObjectDoesNotExist
 
 def update_info(request):
     if request.user.is_authenticated:
@@ -56,7 +57,18 @@ def about(request):
     return render(request, 'about.html', {})
 
 def logout_view(request):
-    logout(request)
+    if request.user.is_authenticated:
+        cart = Cart(request)
+
+        # ✅ Prevent crash by always ensuring Profile exists
+        profile, created = Profile.objects.get_or_create(user=request.user)
+
+        # Save the cart to Profile
+        profile.old_cart = json.dumps(cart.cart)  # assuming cart.cart returns a dict
+        profile.save()
+
+        logout(request)
+
     return redirect('/')
 
 def login_page(request):
@@ -73,24 +85,22 @@ def login_page(request):
         if user is None:
             messages.error(request, 'Invalid password')
             return render(request, 'home.html', {'show_login': True})
-        else:
-            login(request, user)
-            #do some shopping cart stuff
-            current_user = Profile.objects.get(user__id = request.user.id)
-            #get their saved cart from database
-            saved_cart = current_user.old_cart
-            #convert databse string to python dictionary
-            if saved_cart:
-                #convert to dictionaryusing json
-                converted_cart = json.loads(saved_cart)
-                #add the loaded cart dictionary to our session
-                #get the cart
-                cart= Cart(request)
-                #loop through the cart and add the items from tha database
-                for key, value in converted_cart.items():
-                    cart.db_add(product=key, quantity=value)
 
-            return redirect('/home/')
+        login(request, user)
+
+        # ✅ Ensure Profile always exists
+        profile, created = Profile.objects.get_or_create(user=user)
+
+        # 🛒 Restore cart from saved data
+        saved_cart = profile.old_cart
+        if saved_cart:
+            converted_cart = json.loads(saved_cart)
+            cart = Cart(request)
+            for key, value in converted_cart.items():
+                cart.db_add(product=key, quantity=value)
+
+        return redirect('/home/')
+
     return redirect('/home/')
 
 
@@ -101,24 +111,24 @@ def register_user(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = User.objects.filter(username=username)
-
-        if user.exists():
+        if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already in use')
-            return redirect('/register/')
+            return redirect('/')
 
-        user = User(
+        # Create user and save
+        user = User.objects.create_user(
+            username=username,
+            password=password,
             first_name=first_name,
             last_name=last_name,
-            username=username
         )
-        user.set_password(password)
-        user.save()
 
-        # 🔒 Auto-login after registration
-        user = authenticate(username=username, password=password)
-        if user:
-            login(request, user)
-            return redirect('/')  # or any page you want after login
+        # ✅ Ensure Profile is created only if it doesn't exist
+        if not Profile.objects.filter(user=user).exists():
+            Profile.objects.create(user=user, old_cart=json.dumps({}))
 
+        # Auto login
+        login(request, user)
+        return redirect('/')
+        
     return render(request, 'register.html')

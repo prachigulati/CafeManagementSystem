@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404 # type: ignore
+from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from .cart import Cart
 from main.models import Product, Profile
 from django.http import JsonResponse # type: ignore
@@ -8,6 +8,10 @@ from django.contrib import messages
 
 
 def checkout(request):
+    if not request.user.is_authenticated:
+        # Redirect to the same page and automatically show the registration modal
+        messages.info(request, "You need to register or log in before proceeding to checkout.")
+        return redirect('/?show_register_modal=true')  # Passing a query param to trigger the modal
     cart = Cart(request)
     cart_products = cart.get_prods
     quantities = cart.get_quants
@@ -65,17 +69,6 @@ def cart_delete(request):
         cart.delete(product=product_id)
         response = JsonResponse({'product':product_id})
         return response
-
-
-# def cart_update(request):
-#     cart = Cart(request)
-#     if request.POST.get('action') == 'post':
-#         #get stuff
-#         product_id = int(request.POST.get('product_id'))
-#         product_qty = int(request.POST.get('product_qty'))
-#         cart.update(product=product_id, quantity=product_qty)
-#         response = JsonResponse({'qty':product_qty})
-#         return response
 
 
 def cart_update(request):
