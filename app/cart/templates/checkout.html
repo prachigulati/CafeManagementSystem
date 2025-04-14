@@ -90,11 +90,26 @@
     </div>
 
     <!-- Continue to Billing Button -->
-    <div class="text-center mt-4">
+    <!-- <div class="text-center mt-4">
         <a href="#" class="btn btn-success px-5 py-3 rounded-pill shadow-lg"
            style="font-size: 1.1rem; transition: transform 0.2s ease-in-out;">
             Proceed to Payment
         </a>
-    </div>
+    </div> -->
+    
+<div class="card-body">
+    <form method="POST" action="{% url 'process_order' %}">
+      {% csrf_token %}
+  </div>
 </div>
+<br/>
+<button type="submit" class="btn btn-secondary">
+  Pay Now
+</button>
+</form>
+</div>
+
+
+
+
 {% endblock %}

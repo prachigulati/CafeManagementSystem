@@ -24,6 +24,16 @@ def update_info(request):
             current_user.zipcode = request.POST.get('zipcode')
             current_user.country = request.POST.get('country')
             current_user.save()
+            request.session['my_shipping'] = {
+                'shipping_full_name': request.POST.get('full_name', request.user.get_full_name()),
+                'shipping_email': request.POST.get('email', request.user.email),
+                'shipping_address1': request.POST.get('address1'),
+                'shipping_address2': request.POST.get('address2'),
+                'shipping_city': request.POST.get('city'),
+                'shipping_state': request.POST.get('state'),
+                'shipping_zipcode': request.POST.get('zipcode'),
+                'shipping_country': request.POST.get('country'),
+            }
             messages.success(request, "Your info has been updated")
             return redirect('home')
 

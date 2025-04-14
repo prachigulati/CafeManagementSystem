@@ -1,10 +1,171 @@
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from .cart import Cart
 from main.models import Product, Profile
+from cart.models import  Order, OrderItem
 from django.http import JsonResponse # type: ignore
 from django.contrib import messages
+import datetime
 # Create your views here.
 
+
+def orders(request, pk):
+	if request.user.is_authenticated and request.user.is_superuser:
+		# Get the order
+		order = Order.objects.get(id=pk)
+		# Get the order items
+		items = OrderItem.objects.filter(order=pk)
+
+		if request.POST:
+			status = request.POST['shipping_status']
+			# Check if true or false
+			if status == "true":
+				# Get the order
+				order = Order.objects.filter(id=pk)
+				# Update the status
+				now = datetime.datetime.now()
+				order.update(shipped=True, date_shipped=now)
+			else:
+				# Get the order
+				order = Order.objects.filter(id=pk)
+				# Update the status
+				order.update(shipped=False)
+			messages.success(request, "Shipping Status Updated")
+			return redirect('home')
+
+
+		return render(request, 'orders.html', {"order":order, "items":items})
+	else:
+		messages.success(request, "Access Denied")
+		return redirect('home')
+
+
+def not_shipped_dash(request):
+	if request.user.is_authenticated and request.user.is_superuser:
+		orders = Order.objects.filter(shipped=False)
+		if request.POST:
+			status = request.POST['shipping_status']
+			num = request.POST['num']
+			# Get the order
+			order = Order.objects.filter(id=num)
+			# grab Date and time
+			now = datetime.datetime.now()
+			# update order
+			order.update(shipped=True, date_shipped=now)
+			# redirect
+			messages.success(request, "Shipping Status Updated")
+			return redirect('home')
+
+		return render(request, "not_shipped_dash.html", {"orders":orders})
+	else:
+		messages.success(request, "Access Denied")
+		return redirect('home')
+
+def shipped_dash(request):
+	if request.user.is_authenticated and request.user.is_superuser:
+		orders = Order.objects.filter(shipped=True)
+		if request.POST:
+			status = request.POST['shipping_status']
+			num = request.POST['num']
+			# grab the order
+			order = Order.objects.filter(id=num)
+			# grab Date and time
+			now = datetime.datetime.now()
+			# update order
+			order.update(shipped=False)
+			# redirect
+			messages.success(request, "Shipping Status Updated")
+			return redirect('home')
+
+
+		return render(request, "shipped_dash.html", {"orders":orders})
+	else:
+		messages.success(request, "Access Denied")
+		return redirect('home')
+
+
+
+def process_order(request):
+    if request.POST:
+        # Get the cart
+        cart = Cart(request)
+        cart_products = cart.get_prods
+        quantities = cart.get_quants
+        totals = cart.cart_total()
+
+        # Get Shipping Session Data
+        my_shipping = request.session.get('my_shipping')
+
+        # Check if my_shipping exists
+        if not my_shipping:
+            messages.error(request, "Shipping information is missing. Please try again.")
+            return redirect('checkout')  # Redirect the user to an appropriate page
+
+        # Gather Order Info
+        full_name = my_shipping.get('shipping_full_name', 'Default Name')  # Use a default value if key doesn't exist
+        email = my_shipping.get('shipping_email', 'default@example.com')
+        shipping_address = f"{my_shipping.get('shipping_address1', '')}\n" \
+                           f"{my_shipping.get('shipping_address2', '')}\n" \
+                           f"{my_shipping.get('shipping_city', '')}\n" \
+                           f"{my_shipping.get('shipping_state', '')}\n" \
+                           f"{my_shipping.get('shipping_zipcode', '')}\n" \
+                           f"{my_shipping.get('shipping_country', '')}"
+        amount_paid = totals
+
+        # Create an Order
+        if request.user.is_authenticated:
+            # Logged in user
+            user = request.user
+            create_order = Order(user=user, full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
+            create_order.save()
+
+            # Add order items
+            order_id = create_order.pk
+            for product in cart_products():
+                product_id = product.id
+                price = product.sale_price if product.is_sale else product.price
+                for key, value in quantities().items():
+                    if int(key) == product.id:
+                        create_order_item = OrderItem(order_id=order_id, product_id=product_id, user=user, quantity=value, price=price)
+                        create_order_item.save()
+
+            # Delete the cart
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    del request.session[key]
+
+            # Remove old_cart from the Profile
+            current_user = Profile.objects.filter(user__id=request.user.id)
+            current_user.update(old_cart="")
+
+            messages.success(request, "Order Placed!")
+            return redirect('home')
+
+        else:
+            # Not logged in
+            create_order = Order(full_name=full_name, email=email, shipping_address=shipping_address, amount_paid=amount_paid)
+            create_order.save()
+
+            # Add order items
+            order_id = create_order.pk
+            for product in cart_products():
+                product_id = product.id
+                price = product.sale_price if product.is_sale else product.price
+                for key, value in quantities().items():
+                    if int(key) == product.id:
+                        create_order_item = OrderItem(order_id=order_id, product_id=product_id, quantity=value, price=price)
+                        create_order_item.save()
+
+            # Delete the cart
+            for key in list(request.session.keys()):
+                if key == "session_key":
+                    del request.session[key]
+
+            messages.success(request, "Order Placed!")
+            return redirect('home')
+
+    else:
+        messages.success(request, "Access Denied")
+        return redirect('home')
 
 
 def checkout(request):

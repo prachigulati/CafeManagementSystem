@@ -97,33 +97,41 @@
         </div>
     </div>
         <li><a href="{% url 'about' %}">About</a></li>
-        <!-- <li><a href="#">Order Status</a></li> -->
         <li><a href="{% url 'faqs' %}">FAQ's</a></li>
-        <li><a href="#">Reviews</a></li>
+        <li>
+            <form class="d-flex" style="margin-top: -4px;">
+                <li style="position: relative; list-style: none;">
+                    <a href="{% url 'cart_summary' %}" style="text-decoration: none; color: inherit; position: relative; display: inline-block;">
+                    <i class="bi bi-cart-fill" style="font-size: 2rem; color: #333;"></i>
+                    <span id="cart_quantity" style="position: absolute;top: -5px;right: -10px;background-color: #e53935;color: white;font-size: 0.75rem;padding: 3px 6px;border-radius: 50%;font-weight: bold;line-height: 1;">0</span>
+                </a>
+                </li>
+            </form>
+        </li>
         {% if user.is_authenticated %}
-        <div class="dropdown">
+        <div class="dropdown" style="margin-right: 50px;">
             <button class="dropbtn"><a>Profile</a>
                 <i class="fa fa-caret-down"></i>
             </button> 
             <div class="dropdown-content" style="width:20px">
                 <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#userInfoModal">User Info</a>
                 <a href="{% url 'logout' %}" >Logout</a>
+            </div>
+            {% if user.is_superuser %}
+                <div class="dropdown-content" style="width:20px">
+                    <a href="{% url 'shipped_dash' %}">Shipped Orders</a>
+                    <a href="{% url 'not_shipped_dash' %}" >Unshipped Orders</a>
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#userInfoModal">User Info</a>
+                    <a href="{% url 'logout' %}">Logout</a>
                 </div>
-        </div>
-        <!-- <li style="margin-right: 140px;"><a href="/logout/">Logout</a></li> -->
+            </div>
+            {% endif %}
         {% else %}
-        </form>
+        <!-- </form> -->
             <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a></li>
-            <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a></li>
+            <li><a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" style="margin-right: 30px;">Login</a></li>
+        </div>
         {% endif %}
-        <form class="d-flex" style="margin-right: 60px;margin-top: -4px;">
-            <li style="position: relative; list-style: none;">
-                <a href="{% url 'cart_summary' %}" style="text-decoration: none; color: inherit; position: relative; display: inline-block;">
-                <i class="bi bi-cart-fill" style="font-size: 2rem; color: #333;"></i>
-                <span id="cart_quantity" style="position: absolute;top: -5px;right: -10px;background-color: #e53935;color: white;font-size: 0.75rem;padding: 3px 6px;border-radius: 50%;font-weight: bold;line-height: 1;">0</span>
-            </a>
-            </li>
-            </form>
     </ul>
 </nav>
 
