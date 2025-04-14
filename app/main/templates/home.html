@@ -77,6 +77,40 @@
     .image-container:hover .overlay {
     opacity: 1;
     }
+    @media (max-width: 768px) {
+    .steps {
+        gap: 1rem; /* Reduce gap for medium screens */
+        padding: 0.5rem; /* Adjust padding */
+    }
+
+    .steps .box {
+        flex: 1 1 15rem; /* Reduce minimum width for medium screens */
+    }
+
+    .image-container {
+        width: 300px; /* Adjust width for medium screens */
+        height: 320px; /* Adjust height for medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .steps {
+        flex-direction: column; /* Stack elements vertically for small screens */
+        align-items: center; /* Center align content */
+        gap: 1rem; /* Space between items */
+        padding: 0.5rem; /* Adjust padding */
+    }
+
+    .steps .box {
+        flex: 1 1 auto; /* Items take up the full available space */
+    }
+
+    .image-container {
+        width: 100%; /* Full width for smaller screens */
+        height: auto; /* Adjust height dynamically */
+    }
+}
+
 </style>
     <!-- whats_new -->
     <img src="{% static 'assets/img13.jpg' %}" style="width: 100%;height: auto;">
